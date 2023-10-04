@@ -20,7 +20,7 @@ from BoiBazar import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.homePage),
+    path('', views.index, name='index'),
     path("navbar", views.navbar, name='navbar'),
     path("about", views.about, name='about'),
     path("contact", views.contact, name='contact'),
