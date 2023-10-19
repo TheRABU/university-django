@@ -1,32 +1,95 @@
-{% extends 'navbar.html' %} {% block navbar %}
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!-- Bootstrap CSS -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-      crossorigin="anonymous"
-    />
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BoiBazar</title>
+    <style>
+        .image img {
+            width: 100%;
+        }
 
-    <title>BoiBazar.com</title>
-  </head>
-  <body>
-    <h1>Hello, world!</h1>
-    <div class="card text-white bg-primary mb-3" style="max-width: 18rem">
-      <div class="card-header">Header</div>
-      <div class="card-body">
-        <h5 class="card-title">Primary card title</h5>
-        <p class="card-text">
-          Some quick example text to build on the card title and make up the
-          bulk of the card's content.
-        </p>
-      </div>
+        .form1 {
+            -webkit-flex: 0 1 auto;
+            -ms-flex: 0 1 auto;
+            flex: 0 1 auto;
+        }
+
+        .fill {
+            -webkit-flex: 1;
+            -ms-flex: 1;
+            flex: 1;
+        }
+
+        .flex-container {
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-flex-direction: column;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            -webkit-justify-content: space-between;
+            -ms-flex-pack: justify;
+            justify-content: space-between;
+            -webkit-flex: 1;
+            -ms-flex: 1;
+            flex: 1;
+            background: rgb(241, 241, 241);
+            
+            margin: 10px;
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    {% extends 'navbar.html' %}
+    {% block navbar %}
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" style="color:blue ;" role="alert">
+        <strong>Message:</strong> {{ message }}
     </div>
-  </body>
+    {% endfor %}
+    <div class="image">
+        <img src="https://rukminim1.flixcart.com/flap/1800/1800/image/b3fe381767050079.jpg?q=80" alt="invalid">
+    </div>
+    <hr>
+    <div class="container">
+        <div class="row">
+            {% for book in books %}
+            <div class="flex-container" id="{{book.id}}" class="fill">
+                <img src={{book.book_image}} alt="error" width="140px" height="170px">
+
+                <p style="overflow:auto">{{book.book_title}}</p>
+                <p> Price - ${{book.book_price}} </p>
+
+                <form action="#{{book.id}}" method="post" class="form1">
+                    {% csrf_token %}
+                    <input type="hidden" name="proid" value={{book.id}}>
+                    <button class="btn btn-outline-success" style="width:140px; " type="submit" name="submit"
+                        value="Add To Card">Add To Cart</button>
+                </form>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+    <footer class="footer">
+        <div class="text-center">
+            copyright&#169; 2023
+        </div>
+
+    </footer>
+
+    <script>
+
+
+    </script>
+
+</body>
+
 </html>
 {% endblock navbar %}

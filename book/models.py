@@ -12,7 +12,7 @@ class Book(models.Model):
     book_image = models.ImageField(upload_to="book/images", default="")
 
     def __str__(self):
-        return (str(self.book_name) + " by " + str(self.book_author))
+        return (str(self.book_title) + " by " + str(self.book_author))
     
 class Contact(models.Model):
     msg_id = models.AutoField(primary_key=True)
