@@ -28,6 +28,7 @@ urlpatterns = [
     path("contact", views.contact, name='contact'),
     path("cart", views.cart, name='cart'),
     path('borrow/<int:book_id>/', views.borrow_book, name='borrow_book'),
+    path('remove_from_cart/', views.remove_from_cart, name='remove_from_cart'),
 
 ]
 

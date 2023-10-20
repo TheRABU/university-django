@@ -57,6 +57,18 @@ def cart(request):
     }
 
     return render(request, 'cart.html', context)
+def remove_from_cart(request):
+    if request.method == "POST":
+        book_id = request.POST.get("proid")
+        
+        cart = request.session.get('cart', {})
+        if book_id in cart:
+            # Remove the selected product from the cart
+            del cart[book_id]
+            request.session['cart'] = cart
+
+    # Redirect back to the 'cart' page
+    return redirect('cart')
 
 def borrow_book(request, book_id):
     # Retrieve the book based on the book_id
