@@ -60,10 +60,11 @@
         <div class="row">
             {% for book in books %}
             <div class="flex-container" id="{{book.id}}" class="fill">
-                <img src={{book.book_image}} alt="error" width="140px" height="170px">
-                <p style="overflow:auto">{{book.book_author}}</p>
+                
+                <img src="/media/{{book.book_image}}"  width="240px" height="220px" alt="book img">
                 <p style="overflow:auto">{{book.book_title}}</p>
-                <p> Price - ${{book.book_price}} </p>
+                <p style="overflow:auto">writer- {{book.book_author}}</p>
+                <p> Price -৳ {{book.book_price}} </p>
 
                 <form action="{% url 'cart' %}" method="post">
                     {% csrf_token %}

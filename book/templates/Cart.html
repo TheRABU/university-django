@@ -5,6 +5,7 @@
   <thead>
     <tr>
       <th scope="col">Book ID</th>
+      <th scope="col">Book Cover</th>
       <th scope="col">Title</th>
       <th scope="col">Author</th>
       <th scope="col">Quantity</th>
@@ -15,6 +16,7 @@
     {% for item in cart_data %}
       <tr>
         <th scope="row">{{ forloop.counter }}</th>
+        <td><img src="/media/{{ item.book.book_image }}" width="100px" height="100px" alt="book img"></td>
         <td>{{ item.book.book_title }}</td>
         <td>{{ item.book.book_author }}</td>
         <td>{{ item.quantity }}</td>

@@ -9,7 +9,7 @@ class Book(models.Model):
     book_price = models.IntegerField(default=0)
     book_desc = models.CharField(max_length=300)
     book_pub_date = models.DateField()
-    book_image = models.ImageField(upload_to="uploads/")
+    book_image = models.FileField(upload_to='bookimage/',max_length=250,null=True, default=None)
     is_available = models.BooleanField(default=True)
 
     def __str__(self):
