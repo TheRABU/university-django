@@ -24,5 +24,7 @@ urlpatterns = [
     path("navbar", views.navbar, name='navbar'),
     path("about", views.about, name='about'),
     path("contact", views.contact, name='contact'),
+    path("cart", views.cart, name='cart'),
+    path('borrow/<int:book_id>/', views.borrow_book, name='borrow_book'),
 
 ]

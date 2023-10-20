@@ -61,15 +61,15 @@
             {% for book in books %}
             <div class="flex-container" id="{{book.id}}" class="fill">
                 <img src={{book.book_image}} alt="error" width="140px" height="170px">
-
+                <p style="overflow:auto">{{book.book_author}}</p>
                 <p style="overflow:auto">{{book.book_title}}</p>
                 <p> Price - ${{book.book_price}} </p>
 
-                <form action="#{{book.id}}" method="post" class="form1">
+                <form action="{% url 'cart' %}" method="post">
                     {% csrf_token %}
-                    <input type="hidden" name="proid" value={{book.id}}>
-                    <button class="btn btn-outline-success" style="width:140px; " type="submit" name="submit"
-                        value="Add To Card">Add To Cart</button>
+                    <input type="hidden" name="proid" value="{{ book.id }}">
+                    <button class="btn btn-outline-success" style="width:140px;" type="submit" name="submit" value="Add To Cart">Add To Cart</button>
+                    <button class="btn btn-outline-success borrow-book-button" style="width:140px;" data-book-id="{{ book.id }}" data-is-available="{{ book.is_available }}">Borrow Book</button>
                 </form>
             </div>
             {% endfor %}
@@ -79,14 +79,40 @@
 
     <footer class="footer">
         <div class="text-center">
-            copyright&#169; 2023
+            copyright&#169;Rabbi and his team 2023
         </div>
 
     </footer>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-
-
+      $(document).ready(function() {
+        // Add an event listener for "Borrow Book" buttons
+        $(".borrow-book-button").on('click', function(event) {
+          event.preventDefault();
+    
+          // Get the book ID from the button's data attribute
+          var bookId = $(this).data('book-id');
+          var isAvailable = $(this).data('is-available');
+    
+          if (!isAvailable) {
+            alert("This book is not available for borrowing.");
+            return;
+          }
+    
+          // Make an AJAX request to borrow the book
+          $.ajax({
+            type: 'GET',
+            url: `/borrow/${bookId}/`,
+            success: function(response) {
+              alert(response.message);
+            },
+            error: function(error) {
+              alert('Error: Unable to borrow the book.');
+            }
+          });
+        });
+      });
     </script>
 
 </body>

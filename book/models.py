@@ -9,10 +9,14 @@ class Book(models.Model):
     book_price = models.IntegerField(default=0)
     book_desc = models.CharField(max_length=300)
     book_pub_date = models.DateField()
-    book_image = models.ImageField(upload_to="book/images", default="")
+    book_image = models.ImageField(upload_to="uploads/")
+    is_available = models.BooleanField(default=True)
 
     def __str__(self):
         return (str(self.book_title) + " by " + str(self.book_author))
+    @staticmethod
+    def get_detail(id=0):
+        return Book.objects.get(id=id)
     
 class Contact(models.Model):
     msg_id = models.AutoField(primary_key=True)
