@@ -12,6 +12,24 @@ class Book(models.Model):
     book_image = models.FileField(upload_to='bookimage/',max_length=250,null=True, default=None)
     is_available = models.BooleanField(default=True)
 
+    CATEGORY_CHOICES = (
+        ('Fiction', 'Fiction'),
+        ('Non-Fiction', 'Non-Fiction'),
+        ('Mystery', 'Mystery'),
+        ('Thriller', 'Thriller'),
+        ('Novels', 'Novels'),
+        ('Comics', 'Comics'),
+        ('Biography', 'Biography'),
+        ('Horror', 'Horror'),
+        ('Others', 'Others'),
+    )
+
+    category = models.CharField(
+        max_length=20,
+        choices=CATEGORY_CHOICES,
+        default='Fiction'
+    )
+
     def __str__(self):
         return (str(self.book_title) + " by " + str(self.book_author))
     @staticmethod

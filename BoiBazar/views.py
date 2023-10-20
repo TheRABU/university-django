@@ -5,9 +5,28 @@ from book.models import Book
 
 def index(request):
     books = Book.objects.all()
+    fiction_books = Book.objects.filter(category='Fiction')
+    non_fiction_books = Book.objects.filter(category='Non-Fiction')
+    mystery_books = Book.objects.filter(category='Mystery')
+    thriller_books = Book.objects.filter(category='Thriller')
+    novels = Book.objects.filter(category='Novels')
+    comics = Book.objects.filter(category='Comics')
+    biography = Book.objects.filter(category='Biography')
+    horror = Book.objects.filter(category='Horror')
+    others = Book.objects.filter(category='Others')
     
     context = {
-        'books': books
+        'books': books,
+        'fiction_books': fiction_books,
+        'non_fiction_books': non_fiction_books,
+        'mystery_books': mystery_books,
+        'thriller_books': thriller_books,
+        'novels': novels,
+        'comics': comics,
+        'biography': biography,
+        'horror': horror,
+        'others': others,
+
     }
 
     return render(request, 'index.html', context)
@@ -16,18 +35,12 @@ def cart(request):
     if request.method == "POST":
         # Get the product ID and quantity from the submitted form
         book_id = request.POST.get("proid")
-        quantity = 1  # You can modify this based on your form input
-
+        quantity = 1 # Default value
         # Retrieve the cart from the session
         cart = request.session.get('cart', {})
-
-        # Add the selected product to the cart or update its quantity
         cart[book_id] = cart.get(book_id, 0) + quantity
-
         # Update the cart in the session
         request.session['cart'] = cart
-
-        # Redirect to the 'cart' page to display the updated cart
         return redirect('cart')
 
     cart = request.session.get('cart', {})  # Retrieve the cart dictionary from the session
@@ -66,17 +79,12 @@ def remove_from_cart(request):
             # Remove the selected product from the cart
             del cart[book_id]
             request.session['cart'] = cart
-
-    # Redirect back to the 'cart' page
     return redirect('cart')
 
 def borrow_book(request, book_id):
     # Retrieve the book based on the book_id
     book = Book.objects.get(id=book_id)
-
-    # Check if the book is available for borrowing
     if book.is_available:
-        # Update the book's availability status
         book.is_available = False
         book.save()
         return JsonResponse({'message': 'Book borrowed successfully.'})
